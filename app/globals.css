@@ -1,1 +1,58 @@
 @import "tailwindcss";
+
+@theme inline {
+  /* Backgrounds */
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+
+  /* Text */
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+
+  /* Borders */
+  --color-border-primary: var(--border-primary);
+
+  /* Status */
+  --color-success: var(--success);
+  --color-error: var(--error);
+  --color-warning: var(--warning);
+
+  /* Fonts */
+  --font-sans: var(--font-poppins);
+}
+
+/* LIGHT */
+
+:root {
+  color-scheme: light;
+
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+
+  --border-primary: rgba(0,0,0,0.08);
+
+  --success: #22c55e;
+  --error: #ef4444;
+  --warning: #f59e0b;
+}
+
+/* DARK */
+
+.dark {
+  color-scheme: dark;
+
+  --bg-primary: #020617;
+  --bg-secondary: #0f172a;
+
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+
+  --border-primary: rgba(255,255,255,0.08);
+
+  --success: #22c55e;
+  --error: #ef4444;
+  --warning: #f59e0b;
+}
