@@ -1,37 +1,73 @@
-// app/api/pay/route.ts
 import { NextResponse } from 'next/server';
 
-export async function POST(req: Request) {
-  try {
-    // We parse the body to ensure it's a valid request, even if we mock the outcome.
-    const body = await req.json();
+const FAILURE_REASONS = [
+  'Insufficient funds',
+  'Card declined',
+  'Bank rejected transaction',
+  'Payment network unavailable',
+  'Suspicious activity detected',
+];
 
-    // Generate a random float between 0 and 1
-    const roll = Math.random();
+function randomDelay(ms: number): Promise<void> {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms);
+  });
+}
 
-    if (roll < 0.60) {
-      // 60% Chance: Success (Simulate normal 2-second processing time)
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      return NextResponse.json({ status: 'success' }, { status: 200 });
+export async function POST() {
+  /**
+   * RANDOM DISTRIBUTION
+   *
+   * 0.00 - 0.59 => success (60%)
+   * 0.60 - 0.84 => failed (25%)
+   * 0.85 - 1.00 => timeout simulation (15%)
+   */
 
-    } else if (roll < 0.85) {
-      // 25% Chance: Failure (Simulate normal 2-second processing time)
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      return NextResponse.json(
-        { status: 'failed', reason: 'Insufficient funds' },
-        { status: 400 }
-      );
+  const rand = Math.random();
 
-    } else {
-      // 15% Chance: Timeout (Simulate an 8-second hung server)
-      // Note: The frontend AbortController MUST kill this connection at 6 seconds.
-      await new Promise((resolve) => setTimeout(resolve, 8000));
-      return NextResponse.json({ status: 'timeout' }, { status: 408 });
-    }
-  } catch (error) {
+  /**
+   * TIMEOUT CASE
+   * Intentionally delay response beyond frontend abort time.
+   */
+  if (rand >= 0.85) {
+    await randomDelay(8000);
+
+    return NextResponse.json({
+      success: false,
+      status: 'failed',
+      failureReason: 'Gateway timeout',
+    });
+  }
+
+  /**
+   * Simulate realistic processing delay
+   */
+  await randomDelay(2000);
+
+  /**
+   * FAILURE CASE
+   */
+  if (rand >= 0.60) {
+    const randomReason =
+      FAILURE_REASONS[
+      Math.floor(Math.random() * FAILURE_REASONS.length)
+      ];
+
     return NextResponse.json(
-      { status: 'error', reason: 'Invalid payload' },
+      {
+        success: false,
+        status: 'failed',
+        failureReason: randomReason,
+      },
       { status: 400 }
     );
   }
+
+  /**
+   * SUCCESS CASE
+   */
+  return NextResponse.json({
+    success: true,
+    status: 'success',
+  });
 }

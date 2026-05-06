@@ -6,18 +6,18 @@ export function formatCardNumber(raw: string): string {
   return digits.replace(/(.{4})/g, '$1 ').trim();
 }
 
+
+export function formatCVV(raw: string): string {
+  const digits = raw.replace(/\D/g, '').slice(0, 4);
+  return digits;
+}
+
 export function formatExpiry(raw: string): string {
   const digits = raw.replace(/\D/g, '').slice(0, 4); //removes non digits and limits to 4 digits
   if (digits.length >= 3) {
     return `${digits.slice(0, 2)}/${digits.slice(2)}`;
   }
   return digits;
-}
-
-export function maskCardNumber(raw: string): string {
-  const digits = raw.replace(/\s/g, ''); //removes spaces
-  const last4 = digits.slice(-4); //takes last 4 digits
-  return `**** **** **** ${last4}`; //returns masked card number
 }
 
 export function formatCurrency(amount: number, currency: Currency): string {

@@ -26,6 +26,12 @@ export function getCVVMaxLength(cardType: CardType): number {
     return cardType === 'amex' ? 4 : 3;
 }
 
+export function maskCardNumber(raw: string): string {
+    const digits = raw.replace(/\s/g, ''); //removes spaces
+    const last4 = digits.slice(-4); //takes last 4 digits
+    return `**** **** **** ${last4}`; //returns masked card number
+}
+
 // Badge label for UI display
 export function getCardLabel(cardType: CardType): string {
     const labels: Record<CardType, string> = {
