@@ -1,3 +1,3 @@
-export function generateUUID() {
-  return 'uuid-1234';
+export function generateTransactionId(): string {
+  return `txn_${crypto.randomUUID()}`;
 }
