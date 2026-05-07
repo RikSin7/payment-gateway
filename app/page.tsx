@@ -1,6 +1,6 @@
 import TransactionHistory from '@/components/history/TransactionHistory';
 import PaymentPageClient from '@/components/payment/PaymentPageClient';
-import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 export const metadata = {
   title: 'Payment Gateway',
