@@ -99,7 +99,7 @@ export default function PaymentForm() {
   };
 
   // Shared generic input class using your CSS variables
-  const inputBase = "w-full bg-bg-primary border border-scrollbar-thumb text-text-primary rounded-md px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 transition-colors";
+  const inputBase = "w-full bg-bg-primary border border-scrollbar-thumb text-text-primary rounded-md px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-50 transition-colors";
 
   return (
     <div className="flex flex-col lg:flex-row gap-8 w-full max-w-5xl mx-auto">
@@ -124,10 +124,10 @@ export default function PaymentForm() {
             id="cardholderName" name="cardholderName" type="text"
             value={formData.cardholderName} onChange={handleChange} onBlur={handleBlur}
             disabled={isProcessing}
-            className={cn(inputBase, errors.cardholderName && 'border-red-500')}
+            className={cn(inputBase, errors.cardholderName && 'border-error')}
             aria-invalid={!!errors.cardholderName} aria-describedby="name-error"
           />
-          {errors.cardholderName && <p id="name-error" className="text-red-500 text-xs mt-1">{errors.cardholderName}</p>}
+          {errors.cardholderName && <p id="name-error" className="text-error text-xs mt-1">{errors.cardholderName}</p>}
         </div>
 
         {/* Card Number Input */}
@@ -137,10 +137,10 @@ export default function PaymentForm() {
             id="cardNumber" name="cardNumber" type="text" inputMode="numeric" placeholder="0000 0000 0000 0000"
             value={formData.cardNumber} onChange={handleChange} onBlur={handleBlur}
             disabled={isProcessing}
-            className={cn(inputBase, 'font-mono', errors.cardNumber && 'border-red-500')}
+            className={cn(inputBase, 'font-mono', errors.cardNumber && 'border-error')}
             aria-invalid={!!errors.cardNumber} aria-describedby="cardNumber-error"
           />
-          {errors.cardNumber && <p id="cardNumber-error" className="text-red-500 text-xs mt-1">{errors.cardNumber}</p>}
+          {errors.cardNumber && <p id="cardNumber-error" className="text-error text-xs mt-1">{errors.cardNumber}</p>}
         </div>
 
         {/* Expiry and CVV Row */}
@@ -151,10 +151,10 @@ export default function PaymentForm() {
               id="expiry" name="expiry" type="text" placeholder="MM/YY"
               value={formData.expiry} onChange={handleChange} onBlur={handleBlur}
               disabled={isProcessing}
-              className={cn(inputBase, 'font-mono', errors.expiry && 'border-red-500')}
+              className={cn(inputBase, 'font-mono', errors.expiry && 'border-error')}
               aria-invalid={!!errors.expiry} aria-describedby="expiry-error"
             />
-            {errors.expiry && <p id="expiry-error" className="text-red-500 text-xs mt-1">{errors.expiry}</p>}
+            {errors.expiry && <p id="expiry-error" className="text-error text-xs mt-1">{errors.expiry}</p>}
           </div>
           <div className="w-1/2">
             <label htmlFor="cvv" className="text-sm font-medium text-text-secondary">CVV</label>
@@ -162,10 +162,10 @@ export default function PaymentForm() {
               id="cvv" name="cvv" type="text" inputMode="numeric" placeholder={cardType === 'amex' ? '1234' : '123'} maxLength={cardType === 'amex' ? 4 : 3}
               value={formData.cvv} onChange={handleChange} onBlur={handleBlur}
               disabled={isProcessing}
-              className={cn(inputBase, 'font-mono', errors.cvv && 'border-red-500')}
+              className={cn(inputBase, 'font-mono', errors.cvv && 'border-error')}
               aria-invalid={!!errors.cvv} aria-describedby="cvv-error"
             />
-            {errors.cvv && <p id="cvv-error" className="text-red-500 text-xs mt-1">{errors.cvv}</p>}
+            {errors.cvv && <p id="cvv-error" className="text-error text-xs mt-1">{errors.cvv}</p>}
           </div>
         </div>
 
@@ -189,10 +189,10 @@ export default function PaymentForm() {
               id="amount" name="amount" type="text" inputMode="decimal" placeholder="0.00"
               value={formData.amount} onChange={handleChange} onBlur={handleBlur}
               disabled={isProcessing}
-              className={cn(inputBase, errors.amount && 'border-red-500')}
+              className={cn(inputBase, errors.amount && 'border-error')}
               aria-invalid={!!errors.amount} aria-describedby="amount-error"
             />
-            {errors.amount && <p id="amount-error" className="text-red-500 text-xs mt-1">{errors.amount}</p>}
+            {errors.amount && <p id="amount-error" className="text-error text-xs mt-1">{errors.amount}</p>}
           </div>
         </div>
 
@@ -200,7 +200,7 @@ export default function PaymentForm() {
         <button
           type="submit"
           disabled={!isFormValid || isProcessing}
-          className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center h-12"
+          className="w-full mt-6 bg-accent hover:bg-accent-hover text-accent-text font-bold py-3 px-4 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center h-12"
         >
           {isProcessing ? (
             <span className="animate-pulse">Processing...</span>

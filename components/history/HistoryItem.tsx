@@ -13,21 +13,21 @@ interface HistoryItemProps {
 const statusConfig = {
   success: {
     label: 'Success',
-    dot: 'bg-green-500',
-    badge: 'bg-green-100 text-green-700',
-    border: 'border-green-200',
+    dot: 'bg-success',
+    badge: 'bg-success/10 text-success border-success/20',
+    border: 'border-success',
   },
   failed: {
     label: 'Failed',
-    dot: 'bg-red-500',
-    badge: 'bg-red-100 text-red-700',
-    border: 'border-red-200',
+    dot: 'bg-error',
+    badge: 'bg-error/10 text-error border-error/20',
+    border: 'border-error',
   },
   timeout: {
     label: 'Timeout',
-    dot: 'bg-amber-500',
-    badge: 'bg-amber-100 text-amber-700',
-    border: 'border-amber-200',
+    dot: 'bg-warning',
+    badge: 'bg-warning/10 text-warning border-warning/20',
+    border: 'border-warning',
   },
 };
 
@@ -49,10 +49,10 @@ export default function HistoryItem({ transaction, isSelected, onClick }: Histor
       }}
       className={cn(
         'w-full rounded-lg border p-4 cursor-pointer',
-        'bg-[var(--bg-surface)] hover:bg-[var(--bg-glass-hover)]',
+        'bg-bg-surface hover:bg-bg-secondary',
         'transition-all duration-200 text-left',
-        'focus:outline-none focus:ring-2 focus:ring-blue-500',
-        isSelected ? config.border : 'border-[var(--border-subtle)]'
+        'focus:outline-none focus:ring-2 focus:ring-accent',
+        isSelected ? config.border : 'border-border-primary'
       )}
     >
       {/* Top row */}
@@ -62,19 +62,19 @@ export default function HistoryItem({ transaction, isSelected, onClick }: Histor
           <span className={`w-2 h-2 rounded-full shrink-0 ${config.dot}`} />
 
           {/* Transaction ID */}
-          <span className="font-mono text-xs text-[var(--text-muted)] truncate">
+          <span className="font-mono text-xs text-text-muted truncate">
             {transaction.id}
           </span>
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
           {/* Amount */}
-          <span className="text-sm font-semibold text-[var(--text-primary)]">
+          <span className="text-sm font-semibold text-text-primary">
             {formatCurrency(transaction.amount, transaction.currency)}
           </span>
 
           {/* Status badge */}
-          <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${config.badge}`}>
+          <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full border ${config.badge}`}>
             {config.label}
           </span>
         </div>
@@ -82,17 +82,17 @@ export default function HistoryItem({ transaction, isSelected, onClick }: Histor
 
       {/* Second row — card + timestamp */}
       <div className="flex items-center justify-between mt-2">
-        <span className="font-mono text-xs text-[var(--text-muted)]">
+        <span className="font-mono text-xs text-text-muted">
           {transaction.maskedCard}
         </span>
-        <span className="text-xs text-[var(--text-muted)]">
+        <span className="text-xs text-text-muted">
           {formatTimestamp(transaction.timestamp)}
         </span>
       </div>
 
       {/* Expanded detail panel */}
       {isSelected && (
-        <div className="mt-4 pt-4 border-t border-[var(--border-subtle)] space-y-2 text-xs">
+        <div className="mt-4 pt-4 border-t border-border-primary space-y-2 text-xs">
           <DetailRow label="Full ID" value={transaction.id} mono />
           <DetailRow label="Attempt" value={`${transaction.attempt} of 3`} />
           <DetailRow label="Status" value={config.label} />
@@ -111,8 +111,8 @@ export default function HistoryItem({ transaction, isSelected, onClick }: Histor
 function DetailRow({ label, value, mono = false }: { label: string; value: string; mono?: boolean }) {
   return (
     <div className="flex justify-between gap-4">
-      <span className="text-[var(--text-muted)] shrink-0">{label}</span>
-      <span className={`text-[var(--text-primary)] text-right break-all ${mono ? 'font-mono' : ''}`}>
+      <span className="text-text-muted shrink-0">{label}</span>
+      <span className={`text-text-primary text-right break-all ${mono ? 'font-mono' : ''}`}>
         {value}
       </span>
     </div>

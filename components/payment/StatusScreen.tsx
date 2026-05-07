@@ -29,22 +29,22 @@ export default function StatusScreen() {
       icon: <CheckCircle2 className="w-10 h-10" />,
       title: 'Payment Successful',
       subtitle: 'Your transaction was completed.',
-      iconBg: 'bg-green-500/10 text-green-500',
-      border: 'border-green-200',
+      iconBg: 'bg-success/10 text-success',
+      border: 'border-success/30',
     },
     failed: {
       icon: <XCircle className="w-10 h-10" />,
       title: 'Payment Failed',
       subtitle: errorMessage ?? 'Your payment could not be processed.',
-      iconBg: 'bg-red-500/10 text-red-500',
-      border: 'border-red-200',
+      iconBg: 'bg-error/10 text-error',
+      border: 'border-error/30',
     },
     timeout: {
       icon: <AlertTriangle className="w-10 h-10" />,
       title: 'Request Timed Out',
       subtitle: 'The payment gateway did not respond in time.',
-      iconBg: 'bg-yellow-500/10 text-yellow-500',
-      border: 'border-yellow-200',
+      iconBg: 'bg-warning/10 text-warning',
+      border: 'border-warning/30',
     },
   }[status];
 
@@ -59,7 +59,7 @@ export default function StatusScreen() {
       className={cn(
         'w-full max-w-md mx-auto rounded-xl border p-8',
         'flex flex-col items-center gap-5',
-        'bg-[var(--bg-surface)] focus:outline-none',
+        'bg-bg-surface focus:outline-none',
         config.border
       )}
     >
@@ -96,7 +96,7 @@ export default function StatusScreen() {
         ) : (
           <button
             onClick={handleNewPayment}
-            className="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold transition-colors"
+            className="w-full py-3 rounded-lg bg-accent hover:bg-accent-hover text-accent-text text-sm font-bold transition-colors"
           >
             Make Another Payment
           </button>

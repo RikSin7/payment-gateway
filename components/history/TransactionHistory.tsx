@@ -17,9 +17,9 @@ export default function TransactionHistory() {
 
   if (transactions.length === 0) {
     return (
-      <div className="w-full rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-8 flex flex-col items-center gap-2">
-        <p className="text-sm font-medium text-[var(--text-primary)]">No transactions yet</p>
-        <p className="text-xs text-[var(--text-muted)] text-center">
+      <div className="w-full rounded-xl border border-border-primary bg-bg-surface p-8 flex flex-col items-center gap-2">
+        <p className="text-sm font-medium text-text-primary">No transactions yet</p>
+        <p className="text-xs text-text-muted text-center">
           Your payment history will appear here after your first transaction.
         </p>
       </div>
@@ -29,10 +29,10 @@ export default function TransactionHistory() {
   return (
     <div className="w-full flex flex-col gap-2">
       <div className="flex items-center justify-between mb-1">
-        <h2 className="text-sm font-semibold text-[var(--text-primary)]">
+        <h2 className="text-sm font-semibold text-text-primary">
           Transaction History
         </h2>
-        <span className="text-xs text-[var(--text-muted)]">
+        <span className="text-xs text-text-muted">
           {transactions.length} {transactions.length === 1 ? 'record' : 'records'}
         </span>
       </div>
