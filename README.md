@@ -39,48 +39,59 @@ No third-party payment SDK is used.
 
 ## Project Structure
 
+solulab-payment-gateway/
 ├── app/
-│   ├── api/pay/route.ts          # Mock gateway (60/25/15 distribution)
-│   ├── layout.tsx                # Root layout with Redux + Theme providers
-│   ├── page.tsx                  # Server component entry point
-│   ├── loading.tsx               # Suspense fallback
+│   ├── api/
+│   │   └── pay/
+│   │       └── route.ts          # Mock gateway (60/25/15 distribution)
 │   ├── error.tsx                 # Error boundary
-│   └── globals.css               # Tailwind + CSS custom properties
-│
+│   ├── favicon.ico
+│   ├── globals.css               # Tailwind + CSS custom properties
+│   ├── layout.tsx                # Root layout with Redux + Theme providers
+│   ├── loading.tsx               # Suspense fallback
+│   ├── not-found.tsx
+│   └── page.tsx                  # Server component entry point
 ├── components/
+│   ├── history/
+│   │   ├── HistoryItem.tsx       # Expandable row with full detail
+│   │   └── TransactionHistory.tsx
 │   ├── payment/
-│   │   ├── PaymentForm.tsx       # Form with real-time validation
 │   │   ├── CardPreview.tsx       # Live card visualiser
-│   │   ├── StatusScreen.tsx      # Success / Failed / Timeout UI
+│   │   ├── PaymentForm.tsx       # Form with real-time validation
+│   │   ├── PaymentPageClient.tsx # Client boundary
 │   │   ├── RetryTracker.tsx      # Retry logic + attempt counter
-│   │   └── PaymentPageClient.tsx # Client boundary (form ↔ status toggle)
-│   └── history/
-│       ├── TransactionHistory.tsx
-│       └── HistoryItem.tsx       # Expandable row with full detail
-│
+│   │   └── StatusScreen.tsx      # Success / Failed / Timeout UI
+│   ├── ThemeProvider.tsx         # next-themes wrapper
+│   └── ThemeToggle.tsx           # Dark/Light/System theme dropdown
 ├── hooks/
-│   ├── usePaymentFlow.ts         # AbortController, fetch, dispatch
-│   └── useCardValidation.ts      # Real-time card formatting
-│
+│   └── usePaymentFlow.ts         # AbortController, fetch, dispatch
+├── public/
 ├── services/
 │   └── paymentService.ts         # fetch wrapper, error classification
-│
 ├── store/
-│   ├── store.ts                  # configureStore + localStorage middleware
+│   ├── slices/
+│   │   └── paymentSlice.ts       # State machine + upsert logic
 │   ├── hooks.ts                  # Typed useAppDispatch / useAppSelector
 │   ├── provider.tsx              # Provider + StoreHydrator
-│   └── slices/
-│       └── paymentSlice.ts       # State machine + upsert logic
-│
+│   └── store.ts                  # configureStore + localStorage middleware
 ├── types/
+│   ├── index.ts
 │   └── payment.ts                # All domain types, no any
-│
-└── utils/
-├── validators.ts             # Luhn, expiry, CVV, amount
-├── formatters.ts             # Card spacing, currency, masking
-├── cardUtils.ts              # BIN detection (Visa/MC/Amex)
-├── idempotency.ts            # generateTransactionId()
-└── cn.ts                     # clsx + tailwind-merge helper
+├── utils/
+│   ├── cardUtils.ts              # BIN detection (Visa/MC/Amex)
+│   ├── cn.ts                     # clsx + tailwind-merge helper
+│   ├── formatters.ts             # Card spacing, currency, masking
+│   ├── idempotency.ts            # generateTransactionId()
+│   └── validators.ts             # Luhn, expiry, CVV, amount
+├── AGENTS.md
+├── CLAUDE.md
+├── eslint.config.mjs
+├── next.config.ts
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── README.md
+└── tsconfig.json
 
 ---
 
