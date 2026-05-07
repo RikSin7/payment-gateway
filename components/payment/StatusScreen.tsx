@@ -96,7 +96,7 @@ export default function StatusScreen() {
         ) : (
           <button
             onClick={handleNewPayment}
-            className="w-full py-3 rounded-lg bg-accent hover:bg-accent-hover text-accent-text text-sm font-bold transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-accent/50 focus-visible:ring-offset-1 focus-visible:ring-offset-bg-surface"
+            className="w-full cursor-pointer py-3 rounded-lg bg-accent hover:bg-accent-hover text-accent-text text-sm font-bold transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-accent/50 focus-visible:ring-offset-1 focus-visible:ring-offset-bg-surface"
           >
             Make Another Payment
           </button>

@@ -200,7 +200,7 @@ export default function PaymentForm() {
         <button
           type="submit"
           disabled={!isFormValid || isProcessing}
-          className="w-full mt-6 bg-accent hover:bg-accent-hover text-accent-text font-bold py-3 px-4 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center h-12 focus:outline-none focus-visible:ring-1 focus-visible:ring-accent/50 focus-visible:ring-offset-1 focus-visible:ring-offset-bg-surface"
+          className="w-full mt-6 cursor-pointer bg-accent hover:bg-accent-hover text-accent-text font-bold py-3 px-4 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center h-12 focus:outline-none focus-visible:ring-1 focus-visible:ring-accent/50 focus-visible:ring-offset-1 focus-visible:ring-offset-bg-surface"
         >
           {isProcessing ? (
             <span className="animate-pulse">Processing...</span>

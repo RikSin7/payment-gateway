@@ -45,7 +45,7 @@ export function ThemeToggle() {
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className={cn(
-                    "flex items-center justify-center w-10 h-10 rounded-full transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-accent/30",
+                    "flex cursor-pointer items-center justify-center w-10 h-10 rounded-full transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-accent/30",
                     "bg-bg-secondary border border-border-primary text-text-secondary",
                     "hover:text-text-primary hover:bg-bg-surface"
                 )}
