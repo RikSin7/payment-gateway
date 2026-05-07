@@ -3,8 +3,8 @@
 import React, { useState, useMemo } from 'react';
 import CardPreview from './CardPreview';
 import { usePaymentFlow } from '@/hooks/usePaymentFlow';
-import { useAppSelector } from '@/store/hooks';
-import { FormFields, FormErrors } from '@/types';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { FormFields, FormErrors, PaymentPayload } from '@/types';
 import { detectCardType } from '@/utils/cardUtils';
 import {
   formatCardNumber, formatExpiry, formatAmountInput,
@@ -13,11 +13,14 @@ import {
 import {
   validateCardholderName, validateCardNumber, validateExpiry, validateCVV, validateAmount
 } from '@/utils/validators';
+import { setLastPayload } from '@/store/slices/paymentSlice';
+import { generateTransactionId } from '@/utils/idempotency';
 
 export default function PaymentForm() {
   const { processPayment } = usePaymentFlow();
   const { status } = useAppSelector((state) => state.payment);
   const isProcessing = status === 'processing';
+  const dispatch = useAppDispatch();
 
   // Local Form State
   const [formData, setFormData] = useState<FormFields>({
@@ -86,15 +89,14 @@ export default function PaymentForm() {
     e.preventDefault();
     if (!isFormValid || isProcessing) return;
 
-    await processPayment({
-      payload: {
-        ...formData,
-        amount: parseFloat(formData.amount),
-        cardNumber: formData.cardNumber.replace(/\s/g, ''), // Send raw digits to API
-        transactionId: crypto.randomUUID() // Generate unique ID for this new payment flow
-      },
-      attempt: 1
-    });
+    const payload: PaymentPayload = {
+      ...formData,
+      amount: parseFloat(formData.amount),
+      cardNumber: formData.cardNumber.replace(/\s/g, ''),
+      transactionId: generateTransactionId(),
+    };
+
+    await processPayment({ payload, attempt: 1 });
   };
 
   // Shared generic input class using your CSS variables

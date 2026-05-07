@@ -2,7 +2,7 @@
 
 import { useCallback } from 'react';
 import { submitPayment } from '@/services/paymentService';
-import { setProcessing, setSuccess, setFailure, setTimeoutStatus } from '@/store/slices/paymentSlice';
+import { setProcessing, setSuccess, setFailure, setTimeoutStatus, setLastPayload } from '@/store/slices/paymentSlice';
 import { useAppDispatch } from '@/store/hooks';
 import { PaymentPayload, Transaction } from '@/types';
 import { maskCardNumber } from '@/utils/cardUtils';
@@ -17,11 +17,13 @@ export function usePaymentFlow() {
 
   const processPayment = useCallback(
     async ({ payload, attempt }: SubmitPaymentArgs) => {
+      dispatch(setLastPayload(payload)); // store it for retry
+      
       dispatch(setProcessing());
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 6000);
 
-      // 1. Establish Base Transaction (DRY Principle)
+      //  Establish Base Transaction 
       const baseTx: Omit<Transaction, 'status' | 'failureReason'> = {
         id: payload.transactionId,
         amount: payload.amount,
@@ -35,7 +37,7 @@ export function usePaymentFlow() {
         await submitPayment(payload, controller.signal);
         clearTimeout(timeoutId);
 
-        // 2. Success Path
+        // Success Path
         dispatch(setSuccess({ ...baseTx, status: 'success' }));
         return { success: true, timeout: false };
 
@@ -45,7 +47,7 @@ export function usePaymentFlow() {
         const isTimeout = error instanceof DOMException && error.name === 'AbortError';
         const errorMessage = error instanceof Error ? error.message : 'Payment failed';
 
-        // 3. Timeout Path
+        // Timeout Path
         if (isTimeout) {
           dispatch(
             setTimeoutStatus({
@@ -56,7 +58,7 @@ export function usePaymentFlow() {
           return { success: false, timeout: true };
         }
 
-        // 4. Failure Path
+        // Failure Path
         dispatch(
           setFailure({
             transaction: { ...baseTx, status: 'failed', failureReason: errorMessage },
