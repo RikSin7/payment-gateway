@@ -30,7 +30,7 @@ export default function RetryTracker() {
         <p className="text-xs text-text-secondary text-center">Please try a different card or contact your bank.</p>
         <button
           onClick={handleNewPayment}
-          className="w-full py-2.5 mt-2 rounded-lg border border-border-primary text-text-primary text-sm font-medium hover:bg-bg-primary transition-colors"
+          className="w-full py-2.5 mt-2 rounded-lg border border-border-primary text-text-primary text-sm font-medium hover:bg-bg-primary transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-accent/50 focus-visible:ring-offset-1 focus-visible:ring-offset-bg-surface"
         >
           Start New Payment
         </button>
@@ -62,14 +62,14 @@ export default function RetryTracker() {
 
       <button
         onClick={handleRetry}
-        className="w-full py-2.5 rounded-lg bg-accent hover:bg-accent-hover text-accent-text text-sm font-medium transition-colors"
+        className="w-full py-2.5 rounded-lg bg-accent hover:bg-accent-hover text-accent-text text-sm font-medium transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-accent/50 focus-visible:ring-offset-1 focus-visible:ring-offset-bg-surface"
       >
         Retry Payment
       </button>
 
       <button
         onClick={handleNewPayment}
-        className="w-full py-2 text-xs text-text-secondary hover:text-text-primary transition-colors"
+        className="w-full py-2 text-xs text-text-secondary hover:text-text-primary transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-accent/50 focus-visible:ring-offset-1 focus-visible:ring-offset-bg-surface"
       >
         Cancel and start over
       </button>

@@ -15,19 +15,19 @@ const statusConfig = {
     label: 'Success',
     dot: 'bg-success',
     badge: 'bg-success/10 text-success border-success/20',
-    border: 'border-success',
+    border: 'border-success/50',
   },
   failed: {
     label: 'Failed',
     dot: 'bg-error',
     badge: 'bg-error/10 text-error border-error/20',
-    border: 'border-error',
+    border: 'border-error/50',
   },
   timeout: {
     label: 'Timeout',
     dot: 'bg-warning',
     badge: 'bg-warning/10 text-warning border-warning/20',
-    border: 'border-warning',
+    border: 'border-warning/50',
   },
 };
 
@@ -51,7 +51,7 @@ export default function HistoryItem({ transaction, isSelected, onClick }: Histor
         'w-full rounded-lg border p-4 cursor-pointer',
         'bg-bg-surface hover:bg-bg-secondary',
         'transition-all duration-200 text-left',
-        'focus:outline-none focus:ring-2 focus:ring-accent',
+        'focus:outline-none focus-visible:ring-1 focus-visible:ring-accent/30',
         isSelected ? config.border : 'border-border-primary'
       )}
     >
