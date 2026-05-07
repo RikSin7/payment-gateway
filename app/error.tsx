@@ -8,12 +8,12 @@ export default function Error({
   reset: () => void;
 }) {
   return (
-    <main className="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center px-4">
+    <main className="min-h-screen bg-bg-primary flex items-center justify-center px-4">
       <div className="flex flex-col items-center gap-4 text-center max-w-sm">
-        <p className="text-lg font-semibold text-[var(--text-primary)]">
+        <p className="text-lg font-semibold text-text-primary">
           Something went wrong
         </p>
-        <p className="text-sm text-[var(--text-muted)]">
+        <p className="text-sm text-text-muted">
           {error.message ?? 'An unexpected error occurred.'}
         </p>
         <button

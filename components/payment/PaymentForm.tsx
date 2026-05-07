@@ -123,6 +123,8 @@ export default function PaymentForm() {
           <input
             id="cardholderName" name="cardholderName" type="text"
             value={formData.cardholderName} onChange={handleChange} onBlur={handleBlur}
+            placeholder="John Doe"
+            autoComplete="cc-name"
             disabled={isProcessing}
             className={cn(inputBase, errors.cardholderName && 'border-error')}
             aria-invalid={!!errors.cardholderName} aria-describedby="name-error"
@@ -136,6 +138,7 @@ export default function PaymentForm() {
           <input
             id="cardNumber" name="cardNumber" type="text" inputMode="numeric" placeholder="0000 0000 0000 0000"
             value={formData.cardNumber} onChange={handleChange} onBlur={handleBlur}
+            autoComplete="cc-number"
             disabled={isProcessing}
             className={cn(inputBase, 'font-mono', errors.cardNumber && 'border-error')}
             aria-invalid={!!errors.cardNumber} aria-describedby="cardNumber-error"
@@ -150,6 +153,7 @@ export default function PaymentForm() {
             <input
               id="expiry" name="expiry" type="text" placeholder="MM/YY"
               value={formData.expiry} onChange={handleChange} onBlur={handleBlur}
+              autoComplete="cc-exp"
               disabled={isProcessing}
               className={cn(inputBase, 'font-mono', errors.expiry && 'border-error')}
               aria-invalid={!!errors.expiry} aria-describedby="expiry-error"
@@ -161,6 +165,7 @@ export default function PaymentForm() {
             <input
               id="cvv" name="cvv" type="text" inputMode="numeric" placeholder={cardType === 'amex' ? '1234' : '123'} maxLength={cardType === 'amex' ? 4 : 3}
               value={formData.cvv} onChange={handleChange} onBlur={handleBlur}
+              autoComplete="cc-csc"
               disabled={isProcessing}
               className={cn(inputBase, 'font-mono', errors.cvv && 'border-error')}
               aria-invalid={!!errors.cvv} aria-describedby="cvv-error"

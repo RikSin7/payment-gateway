@@ -10,8 +10,7 @@ https://payuonline.vercel.app/
 
 ## Repository
 
-https://github.com/hariprasad-m/solulab-payment-gateway
-
+https://github.com/RikSin7/payment-gateway
 ---
 
 ## Setup & Installation
@@ -23,8 +22,8 @@ https://github.com/hariprasad-m/solulab-payment-gateway
 ### Steps
 
 ```bash
-git clone https://github.com/RikSin7/solulab-payment-gateway
-cd solulab-payment-gateway
+git clone https://github.com/RikSin7/payment-gateway
+cd payment-gateway
 npm install
 npm run dev
 ```
@@ -39,7 +38,7 @@ No third-party payment SDK is used.
 
 ## Project Structure
 
-solulab-payment-gateway/
+payment-gateway/
 ├── app/
 │   ├── api/
 │   │   └── pay/

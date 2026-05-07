@@ -74,7 +74,7 @@ export default function StatusScreen() {
         <h2 className="text-xl font-bold text-text-primary">
           {config.title}
         </h2>
-        <p className="text-sm text-text-secondary mt-1 min-h-[2.5rem]">
+        <p className="text-sm text-text-secondary mt-1 min-h-10">
           {config.subtitle}
         </p>
       </div>

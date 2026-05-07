@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 @theme inline {
   /* Backgrounds */
   --color-bg-primary: var(--bg-primary);
