@@ -88,11 +88,7 @@ No third-party payment SDK is used.
 
 ### Why Redux Toolkit over Zustand
 
-The payment flow maps naturally to a shared state machine — `status`, `lastPayload`, `currentTransaction`, `retryCount`, and `transactions` all need to be readable across `PaymentForm`, `StatusScreen`, `RetryTracker`, and `TransactionHistory` simultaneously.
-
-Redux Toolkit also made the localStorage middleware straightforward — one middleware function that runs after every action and syncs `transactions` to localStorage with zero extra wiring.
-
-Zustand would have been the faster choice under time pressure, but RTK demonstrates more explicit architectural thinking which felt appropriate for this assignment.
+I chose Redux Toolkit because managing a complex payment lifecycle (Idle -> Processing -> Success/Failed/Timeout) requires strict, predictable state transitions. Redux's robust dev-tools allow for time-travel debugging which is crucial for testing complex retry loops and timeout edge cases. Furthermore, writing custom middleware to seamlessly sync the transaction history with localStorage keeps side-effects clean and decoupled from my UI components.
 
 ### State machine design
 

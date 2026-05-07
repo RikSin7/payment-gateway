@@ -26,11 +26,11 @@ export default function RetryTracker() {
   if (isExhausted) {
     return (
       <div className="w-full flex flex-col items-center gap-3 mt-4">
-        <p className="text-sm text-red-500 font-medium text-center">Maximum retry attempts reached.</p>
+        <p className="text-sm text-error font-medium text-center">Maximum retry attempts reached.</p>
         <p className="text-xs text-text-secondary text-center">Please try a different card or contact your bank.</p>
         <button
           onClick={handleNewPayment}
-          className="w-full py-2.5 mt-2 rounded-lg border border-scrollbar-thumb/50 text-text-primary text-sm font-medium hover:bg-bg-primary transition-colors"
+          className="w-full py-2.5 mt-2 rounded-lg border border-border-primary text-text-primary text-sm font-medium hover:bg-bg-primary transition-colors"
         >
           Start New Payment
         </button>
@@ -42,7 +42,7 @@ export default function RetryTracker() {
     <div className="w-full flex flex-col gap-3 mt-4">
       <div className="flex items-center justify-between text-xs text-text-secondary">
         <span>Attempt {attemptsUsed} of {MAX_RETRIES}</span>
-        <span className={attemptsLeft === 1 ? 'text-red-500 font-bold' : 'text-text-secondary'}>
+        <span className={attemptsLeft === 1 ? 'text-error font-bold' : 'text-text-secondary'}>
           {attemptsLeft} {attemptsLeft === 1 ? 'attempt' : 'attempts'} remaining
         </span>
       </div>
@@ -54,7 +54,7 @@ export default function RetryTracker() {
             key={i}
             className={cn(
               'h-1.5 flex-1 rounded-full transition-colors',
-              i < attemptsUsed ? 'bg-red-400' : 'bg-[var(--border-subtle)]'
+              i < attemptsUsed ? 'bg-error' : 'bg-bg-secondary border border-border-primary'
             )}
           />
         ))}
@@ -62,7 +62,7 @@ export default function RetryTracker() {
 
       <button
         onClick={handleRetry}
-        className="w-full py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium transition-colors"
+        className="w-full py-2.5 rounded-lg bg-accent hover:bg-accent-hover text-accent-text text-sm font-medium transition-colors"
       >
         Retry Payment
       </button>
