@@ -11,7 +11,7 @@ export function validateCardNumber(raw: string): string | undefined {
   if (!digits) return 'Card number is required';
   if (!/^\d+$/.test(digits)) return 'Card number must contain only digits';
   if (digits.length < 15 || digits.length > 16) return 'Card number must be 15 or 16 digits';
-  // if (!luhn(digits)) return 'Invalid card number';
+  if (!luhn(digits)) return 'Invalid card number';
 }
 
 export function validateExpiry(value: string): string | undefined {
