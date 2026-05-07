@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import CardPreview from './CardPreview';
 import { usePaymentFlow } from '@/hooks/usePaymentFlow';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { useAppSelector } from '@/store/hooks';
 import { FormFields, FormErrors, PaymentPayload } from '@/types';
 import { detectCardType } from '@/utils/cardUtils';
 import {
@@ -13,14 +13,13 @@ import {
 import {
   validateCardholderName, validateCardNumber, validateExpiry, validateCVV, validateAmount
 } from '@/utils/validators';
-import { setLastPayload } from '@/store/slices/paymentSlice';
 import { generateTransactionId } from '@/utils/idempotency';
+import { cn } from '@/utils/cn';
 
 export default function PaymentForm() {
   const { processPayment } = usePaymentFlow();
   const { status } = useAppSelector((state) => state.payment);
   const isProcessing = status === 'processing';
-  const dispatch = useAppDispatch();
 
   // Local Form State
   const [formData, setFormData] = useState<FormFields>({
@@ -100,7 +99,7 @@ export default function PaymentForm() {
   };
 
   // Shared generic input class using your CSS variables
-  const inputClass = "w-full bg-bg-primary border border-scrollbar-thumb text-text-primary rounded-md px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 transition-colors";
+  const inputBase = "w-full bg-bg-primary border border-scrollbar-thumb text-text-primary rounded-md px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 transition-colors";
 
   return (
     <div className="flex flex-col lg:flex-row gap-8 w-full max-w-5xl mx-auto">
@@ -125,7 +124,7 @@ export default function PaymentForm() {
             id="cardholderName" name="cardholderName" type="text"
             value={formData.cardholderName} onChange={handleChange} onBlur={handleBlur}
             disabled={isProcessing}
-            className={`${inputClass} ${errors.cardholderName ? 'border-red-500' : ''}`}
+            className={cn(inputBase, errors.cardholderName && 'border-red-500')}
             aria-invalid={!!errors.cardholderName} aria-describedby="name-error"
           />
           {errors.cardholderName && <p id="name-error" className="text-red-500 text-xs mt-1">{errors.cardholderName}</p>}
@@ -138,9 +137,10 @@ export default function PaymentForm() {
             id="cardNumber" name="cardNumber" type="text" inputMode="numeric" placeholder="0000 0000 0000 0000"
             value={formData.cardNumber} onChange={handleChange} onBlur={handleBlur}
             disabled={isProcessing}
-            className={`${inputClass} font-mono ${errors.cardNumber ? 'border-red-500' : ''}`}
+            className={cn(inputBase, 'font-mono', errors.cardNumber && 'border-red-500')}
+            aria-invalid={!!errors.cardNumber} aria-describedby="cardNumber-error"
           />
-          {errors.cardNumber && <p className="text-red-500 text-xs mt-1">{errors.cardNumber}</p>}
+          {errors.cardNumber && <p id="cardNumber-error" className="text-red-500 text-xs mt-1">{errors.cardNumber}</p>}
         </div>
 
         {/* Expiry and CVV Row */}
@@ -151,9 +151,10 @@ export default function PaymentForm() {
               id="expiry" name="expiry" type="text" placeholder="MM/YY"
               value={formData.expiry} onChange={handleChange} onBlur={handleBlur}
               disabled={isProcessing}
-              className={`${inputClass} font-mono ${errors.expiry ? 'border-red-500' : ''}`}
+              className={cn(inputBase, 'font-mono', errors.expiry && 'border-red-500')}
+              aria-invalid={!!errors.expiry} aria-describedby="expiry-error"
             />
-            {errors.expiry && <p className="text-red-500 text-xs mt-1">{errors.expiry}</p>}
+            {errors.expiry && <p id="expiry-error" className="text-red-500 text-xs mt-1">{errors.expiry}</p>}
           </div>
           <div className="w-1/2">
             <label htmlFor="cvv" className="text-sm font-medium text-text-secondary">CVV</label>
@@ -161,9 +162,10 @@ export default function PaymentForm() {
               id="cvv" name="cvv" type="text" inputMode="numeric" placeholder={cardType === 'amex' ? '1234' : '123'} maxLength={cardType === 'amex' ? 4 : 3}
               value={formData.cvv} onChange={handleChange} onBlur={handleBlur}
               disabled={isProcessing}
-              className={`${inputClass} font-mono ${errors.cvv ? 'border-red-500' : ''}`}
+              className={cn(inputBase, 'font-mono', errors.cvv && 'border-red-500')}
+              aria-invalid={!!errors.cvv} aria-describedby="cvv-error"
             />
-            {errors.cvv && <p className="text-red-500 text-xs mt-1">{errors.cvv}</p>}
+            {errors.cvv && <p id="cvv-error" className="text-red-500 text-xs mt-1">{errors.cvv}</p>}
           </div>
         </div>
 
@@ -175,7 +177,7 @@ export default function PaymentForm() {
               id="currency" name="currency"
               value={formData.currency} onChange={handleChange}
               disabled={isProcessing}
-              className={inputClass}
+              className={cn(inputBase)}
             >
               <option value="INR">INR (₹)</option>
               <option value="USD">USD ($)</option>
@@ -187,9 +189,10 @@ export default function PaymentForm() {
               id="amount" name="amount" type="text" inputMode="decimal" placeholder="0.00"
               value={formData.amount} onChange={handleChange} onBlur={handleBlur}
               disabled={isProcessing}
-              className={`${inputClass} ${errors.amount ? 'border-red-500' : ''}`}
+              className={cn(inputBase, errors.amount && 'border-red-500')}
+              aria-invalid={!!errors.amount} aria-describedby="amount-error"
             />
-            {errors.amount && <p className="text-red-500 text-xs mt-1">{errors.amount}</p>}
+            {errors.amount && <p id="amount-error" className="text-red-500 text-xs mt-1">{errors.amount}</p>}
           </div>
         </div>
 

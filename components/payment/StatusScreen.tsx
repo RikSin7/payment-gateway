@@ -6,6 +6,7 @@ import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { resetPaymentState } from '@/store/slices/paymentSlice';
 import { formatCurrency, formatTimestamp } from '@/utils/formatters';
 import RetryTracker from './RetryTracker';
+import { cn } from '@/utils/cn';
 
 export default function StatusScreen() {
   const dispatch = useAppDispatch();
@@ -29,18 +30,21 @@ export default function StatusScreen() {
       title: 'Payment Successful',
       subtitle: 'Your transaction was completed.',
       iconBg: 'bg-green-500/10 text-green-500',
+      border: 'border-green-200',
     },
     failed: {
       icon: <XCircle className="w-10 h-10" />,
       title: 'Payment Failed',
       subtitle: errorMessage ?? 'Your payment could not be processed.',
       iconBg: 'bg-red-500/10 text-red-500',
+      border: 'border-red-200',
     },
     timeout: {
       icon: <AlertTriangle className="w-10 h-10" />,
       title: 'Request Timed Out',
       subtitle: 'The payment gateway did not respond in time.',
       iconBg: 'bg-yellow-500/10 text-yellow-500',
+      border: 'border-yellow-200',
     },
   }[status];
 
@@ -52,9 +56,17 @@ export default function StatusScreen() {
       tabIndex={-1}
       role="status"
       aria-live="polite"
-      className="w-full max-w-md mx-auto rounded-xl border border-scrollbar-thumb/20 p-8 flex flex-col items-center gap-5 bg-bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 shadow-lg animate-in fade-in"
+      className={cn(
+        'w-full max-w-md mx-auto rounded-xl border p-8',
+        'flex flex-col items-center gap-5',
+        'bg-[var(--bg-surface)] focus:outline-none',
+        config.border
+      )}
     >
-      <div className={`w-16 h-16 rounded-full flex items-center justify-center ${config.iconBg}`}>
+      <div className={cn(
+        'w-16 h-16 rounded-full flex items-center justify-center',
+        config.iconBg,
+      )}>
         {config.icon}
       </div>
 

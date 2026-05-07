@@ -3,6 +3,7 @@
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { resetPaymentState } from '@/store/slices/paymentSlice';
 import { usePaymentFlow } from '@/hooks/usePaymentFlow';
+import { cn } from '@/utils/cn';
 
 const MAX_RETRIES = 3;
 
@@ -51,8 +52,10 @@ export default function RetryTracker() {
         {Array.from({ length: MAX_RETRIES }).map((_, i) => (
           <div
             key={i}
-            className={`h-1.5 flex-1 rounded-full transition-colors ${i < attemptsUsed ? 'bg-red-500' : 'bg-scrollbar-thumb/30'
-              }`}
+            className={cn(
+              'h-1.5 flex-1 rounded-full transition-colors',
+              i < attemptsUsed ? 'bg-red-400' : 'bg-[var(--border-subtle)]'
+            )}
           />
         ))}
       </div>

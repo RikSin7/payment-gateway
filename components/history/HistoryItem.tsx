@@ -1,6 +1,7 @@
 'use client';
 
 import { Transaction } from '@/types';
+import { cn } from '@/utils/cn';
 import { formatCurrency, formatTimestamp } from '@/utils/formatters';
 
 interface HistoryItemProps {
@@ -46,13 +47,13 @@ export default function HistoryItem({ transaction, isSelected, onClick }: Histor
           onClick();
         }
       }}
-      className={`
-        w-full rounded-lg border p-4 cursor-pointer
-        bg-[var(--bg-surface)] hover:bg-[var(--bg-glass-hover)]
-        transition-all duration-200 text-left
-        focus:outline-none focus:ring-2 focus:ring-blue-500
-        ${isSelected ? config.border : 'border-[var(--border-subtle)]'}
-      `}
+      className={cn(
+        'w-full rounded-lg border p-4 cursor-pointer',
+        'bg-[var(--bg-surface)] hover:bg-[var(--bg-glass-hover)]',
+        'transition-all duration-200 text-left',
+        'focus:outline-none focus:ring-2 focus:ring-blue-500',
+        isSelected ? config.border : 'border-[var(--border-subtle)]'
+      )}
     >
       {/* Top row */}
       <div className="flex items-center justify-between gap-4">
